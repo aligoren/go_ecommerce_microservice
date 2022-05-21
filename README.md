@@ -6,6 +6,8 @@ This is a project just for hobby
 
 All UI components will be here and served by Fiber. So, you need to run it using this command
 
+### Running
+
 ```
 go run .\ui\cmd\web\main.go
 ```
@@ -26,6 +28,8 @@ Routes can be found under the `routes` folder. `routes.go` file contains middlew
 ### Middleware
 
 All middleware can be found under the `middleware` folder. I created a middleware to demonstrate how you can create your own. Shortly, this middleware adds an ability to show service status. It would be necessary If you use a health check service and need to know your service's status.
+
+### Running
 
 ```
 go run .\broker-service\cmd\web\main.go
