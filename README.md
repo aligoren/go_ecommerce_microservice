@@ -2,6 +2,23 @@
 
 This is a project just for hobby
 
+## Service Diagram
+
+This is a service diagram. These are services planned to be implemented
+
+```mermaid
+graph TD
+	UI-->BrokerService;
+	BrokerService-->AuthService;
+	BrokerService-->MailService;
+	BrokerService-->ProductService;
+	BrokerService-->CatalogService;
+	BrokerService-->CartService;
+	AuthService-->LoggerService;
+	AuthService-->PostgresSQL;
+	LoggerService-->MongoDB;
+```
+
 ## UI
 
 All UI components will be here and served by Fiber. So, you need to run it using this command
