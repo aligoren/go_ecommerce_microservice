@@ -33,3 +33,19 @@ func GetUserByID(ctx *fiber.Ctx) error {
 
 	return ctx.Status(http.StatusOK).JSON(user)
 }
+
+func GetAllUsers(ctx *fiber.Ctx) error {
+
+	users, err := repository.GetAllUsers()
+
+	if err != nil {
+		return ctx.Status(http.StatusNotFound).JSON(models.ResponseModel{
+			StatusCode: 404,
+			Message:    "User not found",
+			Error:      true,
+			Data:       err,
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(users)
+}

@@ -19,5 +19,10 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Use(middleware.HeartBeat("/ping"))
 
-	app.Get("/:id", GetUserByID)
+	api := app.Group("/api")
+
+	v1 := api.Group("/v1")
+
+	v1.Get("/users", GetAllUsers)
+	v1.Get("/users/:id", GetUserByID)
 }

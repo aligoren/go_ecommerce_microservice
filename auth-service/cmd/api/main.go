@@ -15,7 +15,7 @@ func main() {
 
 	env := os.Getenv("ENV")
 
-	if env == "DEVELOPMENT" {
+	if env == "" || env == "DEVELOPMENT" {
 		err := godotenv.Load()
 
 		if err != nil {
