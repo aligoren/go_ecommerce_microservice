@@ -109,8 +109,19 @@ There are things to be completed. I should be documented each service. If I do t
 
 These are the things I should be completed! And, more will become.
 
-- [ ] Service Documentation
+- [ ] UI Service
+- [ ] Broker Service
+- [ ] Auth Service
+  - [ ] PostgresSQL Connection
+  - [ ] Logger Service Connection
+- [ ] Logger Service
+  - [ ] MongoDB Connection
+- [ ] Mail Service
+- [ ] Product Service
+- [ ] Catalog Service
+- [ ] Cart Service
 - [ ] Unit Tests
+- [ ] Service Documentation
 
 ## Notes
 
