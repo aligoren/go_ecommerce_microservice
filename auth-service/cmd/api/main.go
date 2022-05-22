@@ -6,16 +6,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
 )
 
 const port = ":80"
 
 func main() {
 
-	err := godotenv.Load()
+	env := os.Getenv("ENV")
 
-	if err != nil {
-		log.Fatal(".env file couldn't loaded")
+	if env == "DEVELOPMENT" {
+		err := godotenv.Load()
+
+		if err != nil {
+			log.Fatalf(".env file couldn't loaded %v", env)
+		}
 	}
 
 	database.ConnectDb()

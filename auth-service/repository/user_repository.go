@@ -9,7 +9,7 @@ func GetOne(ID int) (models.User, error) {
 
 	user := models.User{}
 
-	if result := database.DB.Db.Find(&user).Where("ID = ?", ID); result.Error != nil {
+	if result := database.DB.Db.Find(&user).Where("id = ?", ID); result.Error != nil {
 		return user, result.Error
 	}
 

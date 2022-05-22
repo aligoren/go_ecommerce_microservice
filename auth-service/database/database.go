@@ -33,7 +33,7 @@ func ConnectDb() {
 	})
 
 	if err != nil {
-		log.Fatalf("Failed to connect to database %v\n", err)
+		log.Fatalf("Failed to connect to database %v\n, dsn: %s", err, dsn)
 	}
 
 	err = db.AutoMigrate(&models.User{})

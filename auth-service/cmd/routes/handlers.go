@@ -22,5 +22,14 @@ func GetUserByID(ctx *fiber.Ctx) error {
 		})
 	}
 
+	if user.ID == 0 {
+		return ctx.Status(http.StatusNotFound).JSON(models.ResponseModel{
+			StatusCode: 404,
+			Message:    "User not found",
+			Error:      true,
+			Data:       nil,
+		})
+	}
+
 	return ctx.Status(http.StatusOK).JSON(user)
 }
