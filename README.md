@@ -62,8 +62,12 @@ This is an authentication service for now. There are three endpoints, one is opt
 
 ### Registered Routes
 
+- POST: `/api/v1/auth` -> User login route
 - GET: `/api/v1/users` -> Returns all users
 - GET: `/api/v1/users/:id` -> Returns single user
+- POST: `/api/v1/users` -> Creates a new user
+- PUT: `/api/v1/users` -> Updates an existing user
+- DELETE: `/api/v1/users` -> Soft delete an existing user
 - GET: `/ping` -> Returns 200 and text/plain result. This route works when you use `HeartBeat` middleware.
 
 ### Routes

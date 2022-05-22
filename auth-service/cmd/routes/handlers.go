@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"errors"
 	"github.com/aligoren/go_ecommerce_microservice/auth-service/models"
 	"github.com/aligoren/go_ecommerce_microservice/auth-service/repository"
 	"github.com/gofiber/fiber/v2"
@@ -203,4 +204,72 @@ func Delete(ctx *fiber.Ctx) error {
 		Data:       nil,
 	})
 
+}
+
+func Login(ctx *fiber.Ctx) error {
+	userModel := new(models.User)
+
+	if err := ctx.BodyParser(userModel); err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(models.ResponseModel{
+			StatusCode: 500,
+			Message:    "Response body couldn't parse",
+			Error:      true,
+			Data:       nil,
+		})
+	}
+
+	user, err := repository.GetByEmail(userModel.Email)
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(models.ResponseModel{
+			StatusCode: 500,
+			Message:    "User couldn't delete",
+			Error:      true,
+			Data:       nil,
+		})
+	}
+
+	isPasswordValid, err := checkPassword(user.Password, userModel.Password)
+
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(models.ResponseModel{
+			StatusCode: 500,
+			Message:    "User couldn't login",
+			Error:      true,
+			Data:       nil,
+		})
+	}
+
+	if !isPasswordValid {
+		return ctx.Status(http.StatusUnauthorized).JSON(models.ResponseModel{
+			StatusCode: 401,
+			Message:    "User couldn't found",
+			Error:      false,
+			Data:       nil,
+		})
+	}
+
+	user.Password = ""
+
+	return ctx.Status(http.StatusOK).JSON(models.ResponseModel{
+		StatusCode: 200,
+		Message:    "User logged in successfully",
+		Error:      false,
+		Data:       user,
+	})
+}
+
+func checkPassword(registeredPassword string, formPassword string) (bool, error) {
+	err := bcrypt.CompareHashAndPassword([]byte(registeredPassword), []byte(formPassword))
+
+	if err != nil {
+		switch {
+		case errors.Is(err, bcrypt.ErrMismatchedHashAndPassword):
+			// invalid password
+			return false, nil
+		default:
+			return false, err
+		}
+	}
+
+	return true, nil
 }

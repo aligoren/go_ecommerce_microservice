@@ -21,7 +21,7 @@ func GetByEmail(email string) (models.User, error) {
 
 	user := models.User{}
 
-	if result := database.DB.Db.Find(&user).Where("email = ?", email); result.Error != nil {
+	if result := database.DB.Db.Select("id", "first_name", "last_name", "email", "created_at", "updated_at", "password").Where("email = ?", email).Find(&user); result.Error != nil {
 		return user, result.Error
 	}
 
