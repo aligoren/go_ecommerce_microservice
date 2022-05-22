@@ -56,7 +56,7 @@ cd broker-service
 make build-run
 ```
 
-## Aut Service
+## Auth Service
 
 This is an authentication service for now. There are three endpoints, one is optional.
 
