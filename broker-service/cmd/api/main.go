@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/config"
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/routes"
 	"github.com/gofiber/fiber/v2"
 	"log"
@@ -10,8 +9,6 @@ import (
 const port = ":80"
 
 func main() {
-
-	config.LoadServicesJson()
 
 	app := fiber.New()
 

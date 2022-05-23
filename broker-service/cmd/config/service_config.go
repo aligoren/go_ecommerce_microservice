@@ -2,10 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/models"
-	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
 	"log"
 	"os"
@@ -34,19 +31,4 @@ func LoadServicesJson() {
 		log.Fatalf("Error while unmarshaling json data %v", err)
 	}
 
-}
-
-func IsPathValid(service string, ctx *fiber.Ctx) error {
-
-	path := ctx.Params("path")
-
-	cfg := JsonConfig[service]
-
-	if cfg.BaseUrl != "" {
-		if cfg.Path != path {
-			return errors.New(fmt.Sprintf("Unregistered path /%s", path))
-		}
-	}
-
-	return nil
 }

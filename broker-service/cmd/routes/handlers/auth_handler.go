@@ -1,41 +1,35 @@
-package routes
+package handlers
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/config"
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/models"
 	"github.com/gofiber/fiber/v2"
+	"log"
 	"net/http"
 )
 
 var baseUrl string
 
-func AuthGetHandler(typeName string, jsonConfig map[string]models.ServiceModel, ctx *fiber.Ctx) error {
+const service = "auth"
 
-	baseUrl = jsonConfig["auth"].BaseUrl
+func init() {
 
-	switch typeName {
-	case "req-single-user":
-		return getUserByID(ctx)
-	case "req-all-users":
-		return getAllUsers(ctx)
-	default:
-		return ctx.Status(http.StatusNotAcceptable).JSON(models.ResponseModel{
-			StatusCode: http.StatusNotAcceptable,
-			Message:    "Missed headers!",
-			Error:      true,
-			Data:       nil,
-		})
-	}
+	config.LoadServicesJson()
+
+	baseUrl = config.JsonConfig[service].BaseUrl
 }
 
-func getUserByID(ctx *fiber.Ctx) error {
+func GetUserByID(ctx *fiber.Ctx) error {
 
-	userID := ctx.Query("id", "0")
+	userID := ctx.Params("id", "0")
 
 	response, err := http.Get(fmt.Sprintf("%s/users/%s", baseUrl, userID))
 
 	if err != nil {
+
+		log.Printf("Path %v, baseUrl: %s", err, baseUrl)
 		return ctx.Status(http.StatusInternalServerError).JSON(models.ResponseModel{
 			StatusCode: 500,
 			Message:    "Error while fetching user info",
@@ -51,7 +45,7 @@ func getUserByID(ctx *fiber.Ctx) error {
 
 }
 
-func getAllUsers(ctx *fiber.Ctx) error {
+func GetAllUsers(ctx *fiber.Ctx) error {
 
 	response, err := http.Get(fmt.Sprintf("%s/users", baseUrl))
 

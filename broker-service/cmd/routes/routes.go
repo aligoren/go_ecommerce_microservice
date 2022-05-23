@@ -2,11 +2,13 @@ package routes
 
 import (
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/middleware"
+	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/routes/handlers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func SetupRoutes(app *fiber.App) {
+
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "*",
 		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
@@ -18,5 +20,8 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Use(middleware.HeartBeat("/ping"))
 
-	app.Get("/api/:path", Get)
+	api := app.Group("/api", middleware.HeartBeat("/ping"))
+
+	api.Get("/users", handlers.GetAllUsers)
+	api.Get("/users/:id", handlers.GetUserByID)
 }
