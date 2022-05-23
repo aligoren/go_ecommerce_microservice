@@ -18,5 +18,5 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Use(middleware.HeartBeat("/ping"))
 
-	app.Get("/", Get)
+	app.Get("/api/:path", Get)
 }

@@ -35,9 +35,52 @@ make build-run
 
 This is just a basic broker service for now. There are two endpoints, one is optional.
 
+### Required Headers
+
+In this project, developer have to send two headers. These are can be explained like that;
+
+
+```json
+[
+  {
+    "service": "auth",
+    "req-type": "req-single-user",
+    "GET": {
+      "req-single-user": {
+        "query": "?id=1"
+      },
+      "req-all-users": {}
+    }
+  }
+]
+```
+
+According to the above schema, we can create a request like that
+
+**Headers**
+
+`service: auth`
+
+`req-type: req-single-user` or `req-type: req-all-users`
+
+**GET Request**
+
+Type: `req-single-user`
+
+**Request URL:** `http://broker-service/api/users?id=1`
+
+Type: `req-all-users`
+
+**Request URL:** `http://broker-service/api/users`
+
+### services.json
+
+This is a file that contains other microservices and their configs. It's placed in the root folder
+
 ### Registered Routes
 
 - GET: `/` -> Returns JSON for index
+- GET: `/api/:path` -> It's a wildcard to connect services
 - GET: `/ping` -> Returns 200 and text/plain result. This route works when you use `HeartBeat` middleware.
 
 ### Routes
