@@ -1,5 +1,5 @@
 {
   "auth": {
-    "baseUrl": "http://localhost:8083/api/v1"
+    "baseUrl": "http://auth-service/api/v1"
   }
 }
