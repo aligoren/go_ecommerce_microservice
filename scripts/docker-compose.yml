@@ -12,6 +12,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      ENV: "PRODUCTION"
 
   auth-service:
     container_name: "auth-service"

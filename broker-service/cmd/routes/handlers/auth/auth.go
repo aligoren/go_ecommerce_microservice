@@ -6,8 +6,10 @@ import (
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/config"
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/models"
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
+	"os"
 )
 
 var baseUrl string
@@ -16,7 +18,21 @@ const service = "auth"
 
 func init() {
 
-	config.LoadServicesJson()
+	env := os.Getenv("ENV")
+
+	var fileName string = "services.production"
+
+	if env == "" || env == "DEVELOPMENT" {
+		err := godotenv.Load()
+
+		if err != nil {
+			log.Fatalf(".env file couldn't loaded %v", env)
+		}
+
+		fileName = "services"
+	}
+
+	config.LoadServicesJson(fileName)
 
 	baseUrl = config.JsonConfig[service].BaseUrl
 }

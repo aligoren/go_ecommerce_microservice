@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/aligoren/go_ecommerce_microservice/broker-service/cmd/models"
 	"io/ioutil"
 	"log"
@@ -10,8 +11,8 @@ import (
 
 var JsonConfig map[string]models.ServiceModel
 
-func LoadServicesJson() {
-	jsonFile, err := os.Open("services.json")
+func LoadServicesJson(fileName string) {
+	jsonFile, err := os.Open(fmt.Sprintf("%s.json", fileName))
 
 	if err != nil {
 		log.Fatalf("Services file couldn't open %v", err)

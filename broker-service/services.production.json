@@ -1,0 +1,5 @@
+{
+  "auth": {
+    "baseUrl": "http://auth-service/api/v1"
+  }
+}
