@@ -2,6 +2,19 @@ version: '3'
 
 services:
 
+  ui-service:
+    build:
+      context: ./../ui
+      dockerfile: ./../ui/ui-service.dockerfile
+    restart: always
+    ports:
+      - "8081:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      ENV: "PRODUCTION"
+
   broker-service:
     build:
       context: ./../broker-service

@@ -1,0 +1,5 @@
+{
+  "broker": {
+    "baseUrl": "http://broker-service/api"
+  }
+}
