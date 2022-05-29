@@ -14,8 +14,22 @@ graph TD
 	BrokerService-->ProductService;
 	BrokerService-->CatalogService;
 	BrokerService-->CartService;
+	
 	AuthService-->LoggerService;
-	AuthService-->PostgresSQL;
+	AuthService-->AuthPostgresSQL;
+	
+	MailService-->LoggerService;
+	MailService-->MailPostgresSQL;
+	
+  ProductService-->LoggerService;
+	ProductService-->ProductPostgresSQL;
+	
+	CatalogService-->LoggerService;
+	CatalogService-->CatalogPostgresSQL;
+	
+	CartService-->LoggerService;
+	CartService-->CartPostgresSQL;
+	
 	LoggerService-->MongoDB;
 ```
 
